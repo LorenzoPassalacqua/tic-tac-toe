@@ -6,10 +6,10 @@ function placeXorO (squareNumber){
         let select = document.getElementById(squareNumber);
     
         if (activeplayer === "x"){
-            select.style.backgroundImage= "x.png";
+            select.style.backgroundImage= 'url ("x.png")';
         }
         else {
-            select.style.backgroundImage= "o.png";
+            select.style.backgroundImage= 'url ("o.png")';
         }
         selectedsquares.push (squareNumber + activeplayer);
         checkwinconditions();
@@ -18,6 +18,7 @@ function placeXorO (squareNumber){
         }
         else {
             activeplayer = "x";
+            
         }
         Audio ("place.mp3")
         if (activeplayer === "o"){
@@ -78,13 +79,14 @@ function disableclik(){
 }
 
 function Audio (audioURL){
-    let audio= new (audioURL);
+    let audio= new Audio (audioURL);
     audio.play();
 }
 
 
 function drawWinline(coordx1, coordy1, coordx2, coordy2){
     const canvas = document.getElementById("win-lines");
+    const c = canvas.getContext ("2d");
     let x1 = coordx1, 
         y1 = coordy1,
         x2 = coordx2,
