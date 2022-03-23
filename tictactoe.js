@@ -1,27 +1,28 @@
-let activeplayer = "x";
+let activeplayer = "X";
 let selectedsquares = [];
 
-function placeXorO (squareNumber){
-    if (!selectedsquares.some(Element => Element.includes(squareNumber))) {
-        let select = document.getElementById(squareNumber);
+function placeXorO (Number){
+    if (!selectedsquares.some(element => element.includes(Number))) {
+        let select = document.getElementById(Number);
     
-        if (activeplayer === "x"){
-            select.style.backgroundImage= 'url ("x.png")';
+        if (activeplayer == "X"){ 
+            select.setAttribute("background", "X.png");
         }
         else {
-            select.style.backgroundImage= 'url ("o.png")';
+            select.setAttribute("background", "O.png");
         }
-        selectedsquares.push (squareNumber + activeplayer);
+        
+        selectedsquares.push (Number + activeplayer);
         checkwinconditions();
-        if (activeplayer === "x"){
-            activeplayer= "o";
+        if (activeplayer == "X"){
+            activeplayer= "O";
         }
         else {
-            activeplayer = "x";
+            activeplayer = "X";
             
         }
-        Audio ("place.mp3")
-        if (activeplayer === "o"){
+        audio ("place.mp3")
+        if (activeplayer == "O"){
             disableclik();
             setTimeout(function(){computersTurn(); }, 1000);
         }
@@ -35,6 +36,7 @@ function placeXorO (squareNumber){
             if (placeXorO(pickasquare)){
                 placeXorO(pickasquare);
                 success=true;
+                console.log(selectedsquares)
             }
         }
     }
@@ -42,25 +44,25 @@ function placeXorO (squareNumber){
 
 
 function checkwinconditions(){
-    if (ArrayIncludes("0x", "1x", "x2")) {drawWinline (50, 100, 558, 100)}
-    else if (ArrayIncludes("3x", "4x", "5x")) {drawWinline (50, 304, 558, 304)}
-    else if (ArrayIncludes("6x", "7x", "8x")) {drawWinline (50, 508, 558, 508)}
-    else if (ArrayIncludes("0x", "3x", "6x")) {drawWinline (100, 50, 100, 558)}
-    else if (ArrayIncludes("1x","4x", "7x")) {drawWinline (304, 50, 304, 508)}
-    else if (ArrayIncludes("2x", "5x", "8x")) {drawWinline (508, 50, 508, 558)}
-    else if (ArrayIncludes("6x", "4x", "2x")) {drawWinline (100, 508, 510, 90)}
-    else if (ArrayIncludes("0x", "4x", "8x")) {drawWinline (100, 100, 520, 520)}
-    else if (ArrayIncludes("0o", "1o", "2o")) {drawWinline (50, 100, 558, 100)}
-    else if (ArrayIncludes("3o", "4o", "5o")) {drawWinline (50, 304, 558, 304 )}
-    else if (ArrayIncludes("6o", "7o", "8o")) {drawWinline (50, 508, 558, 508)}
-    else if (ArrayIncludes("0o", "3o", "6o")) {drawWinline (100, 50, 100, 558)}
-    else if (ArrayIncludes("1o", "4o", "7o")) {drawWinline (304, 50, 304, 558)}
-    else if (ArrayIncludes("2o", "5o", "80")) {drawWinline (508, 50, 508, 558)}
-    else if (ArrayIncludes("6o", "40", "2o")) {drawWinline (100, 508, 510, 90)}
-    else if (ArrayIncludes("0o", "4o", "8o")) {drawWinline (100, 100, 520, 520)}
+    if (ArrayIncludes("0X", "1X", "2X")) {drawWinline (50, 100, 558, 100)}
+    else if (ArrayIncludes("3X", "4X", "5X")) {drawWinline (50, 304, 558, 304)}
+    else if (ArrayIncludes("6X", "7X", "8X")) {drawWinline (50, 508, 558, 508)}
+    else if (ArrayIncludes("0X", "3X", "6X")) {drawWinline (100, 50, 100, 558)}
+    else if (ArrayIncludes("1X","4X", "7X")) {drawWinline (304, 50, 304, 508)}
+    else if (ArrayIncludes("2X", "5X", "8X")) {drawWinline (508, 50, 508, 558)}
+    else if (ArrayIncludes("6X", "4X", "2X")) {drawWinline (100, 508, 510, 90)}
+    else if (ArrayIncludes("0X", "4X", "8X")) {drawWinline (100, 100, 520, 520)}
+    else if (ArrayIncludes("0O", "1O", "2O")) {drawWinline (50, 100, 558, 100)}
+    else if (ArrayIncludes("3O", "4O", "5O")) {drawWinline (50, 304, 558, 304)}
+    else if (ArrayIncludes("6O", "7O", "8O")) {drawWinline (50, 508, 558, 508)}
+    else if (ArrayIncludes("0O", "3O", "6O")) {drawWinline (100, 50, 100, 558)}
+    else if (ArrayIncludes("1O", "4O", "7O")) {drawWinline (304, 50, 304, 558)}
+    else if (ArrayIncludes("2O", "5O", "8O")) {drawWinline (508, 50, 508, 558)}
+    else if (ArrayIncludes("6O", "4O", "2O")) {drawWinline (100, 508, 510, 90)}
+    else if (ArrayIncludes("0O", "4O", "8O")) {drawWinline (100, 100, 520, 520)}
 
-    else if (selectedsquares >= 9){
-        Audio("//tie.mp3")
+    else if (selectedsquares.length >= 9){
+        audio("tie.mp3")
         setTimeout (function () {resetgame(); }, 1000);
     }
 
@@ -78,7 +80,7 @@ function disableclik(){
     setTimeout (function(){ body.style.pointerEvents= "auto"}, 1000);
 }
 
-function Audio (audioURL){
+function audio (audioURL){
     let audio= new Audio (audioURL);
     audio.play();
 }
@@ -124,8 +126,8 @@ function drawWinline(coordx1, coordy1, coordx2, coordy2){
 
 function resetgame(){
     for (let i = 0; i < 9; i++){
-        let square = document.getElementById(string(i));
-        square.style.backgroundImage = "";
+        let square = document.getElementById(String(i));
+        square.setAttribute("background", "");
     }
     selectedsquares = [];
 }
